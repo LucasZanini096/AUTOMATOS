@@ -38,7 +38,7 @@ int nfa(node** graph, int current, char* input, int* accept, int start) {
 int main() {
     char alfabeto[50];
     int n, num_finais, num_transicoes, num_palavras;
-    int i, j;
+    int i;
 
     // Leitura do alfabeto
     scanf("%s", alfabeto);
