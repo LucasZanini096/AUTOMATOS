@@ -3,16 +3,18 @@
 #include <string.h>
 
 // Estrutura para representar um nó da lista de adjacência
-struct node {
+struct node
+{
     int data;
-    struct node* next;
+    struct node *next;
     char edgetype;
 };
 typedef struct node node;
 
 // Função para adicionar uma aresta na lista de adjacência
-node* push(node* first, char edgetype, int data) {
-    node* new_node = (node*)malloc(sizeof(node));
+node *push(node *first, char edgetype, int data)
+{
+    node *new_node = (node *)malloc(sizeof(node));
     new_node->edgetype = edgetype;
     new_node->data = data;
     new_node->next = first;
@@ -20,12 +22,14 @@ node* push(node* first, char edgetype, int data) {
 }
 
 // Função recursiva para verificar a aceitação da palavra
-int nfa(node** graph, int current, char* input, int* accept, int start) {
+int nfa(node **graph, int current, char *input, int *accept, int start)
+{
     if (start == (int)strlen(input))
         return accept[current];
 
-    node* temp = graph[current];
-    while (temp != NULL) {
+    node *temp = graph[current];
+    while (temp != NULL)
+    {
         if (input[start] == temp->edgetype)
             if (nfa(graph, temp->data, input, accept, start + 1))
                 return 1;
@@ -34,8 +38,8 @@ int nfa(node** graph, int current, char* input, int* accept, int start) {
     return 0;
 }
 
-// Função principal
-int main() {
+void interative_mode(void)
+{
     char alfabeto[50];
     int n, num_finais, num_transicoes, num_palavras;
     int i;
@@ -45,7 +49,7 @@ int main() {
 
     // Número de estados
     scanf("%d", &n);
-    node* graph[n + 1];
+    node *graph[n + 1];
     for (i = 0; i <= n; i++)
         graph[i] = NULL;
 
@@ -53,10 +57,11 @@ int main() {
     scanf("%d", &num_finais);
     int accept[n + 1];
     memset(accept, 0, sizeof(accept));
-    //Utilização da função memset para filtrar um bloco de memória com um valor específico
+    // Utilização da função memset para filtrar um bloco de memória com um valor específico
 
     // Leitura dos estados finais
-    for (i = 0; i < num_finais; i++) {
+    for (i = 0; i < num_finais; i++)
+    {
         int final_state;
         scanf("%d", &final_state);
         accept[final_state] = 1;
@@ -64,7 +69,8 @@ int main() {
 
     // Número de transições
     scanf("%d", &num_transicoes);
-    for (i = 0; i < num_transicoes; i++) {
+    for (i = 0; i < num_transicoes; i++)
+    {
         int origem, destino;
         char simbolo;
         scanf("%d %c %d", &origem, &simbolo, &destino);
@@ -73,7 +79,8 @@ int main() {
 
     // Número de palavras a serem testadas
     scanf("%d", &num_palavras);
-    for (i = 0; i < num_palavras; i++) {
+    for (i = 0; i < num_palavras; i++)
+    {
         char palavra[100];
         scanf("%s", palavra);
         if (nfa(graph, 0, palavra, accept, 0))
@@ -81,6 +88,10 @@ int main() {
         else
             printf("%s: rejeitada\n", palavra);
     }
+}
 
-    return 0;
+int main(void)
+{
+    interative_mode();
+    return EXIT_SUCCESS;
 }
