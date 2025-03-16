@@ -165,22 +165,24 @@ void file_mode(void)
 
     // Número de transições
     int num_transicoes;
-    read_line(file, 5, "%d", &num_transicoes);
+    int num_transicoes_linha = 5;
+    read_line(file, num_transicoes_linha, "%d", &num_transicoes);
     for (int i = 1; i <= num_transicoes; i++)
     {
         int origem, destino;
         char simbolo;
-        read_line(file, 5 + i, "%d %c %d", &origem, &simbolo, &destino);
+        read_line(file, num_transicoes_linha + i, "%d %c %d", &origem, &simbolo, &destino);
         graph[origem] = push(graph[origem], simbolo, destino);
     }
 
     // Número de palavras a serem testadas
     int num_palavras;
-    read_line(file, 10, "%d", &num_palavras);
+    int num_palavras_linha = num_transicoes_linha + num_transicoes + 1;
+    read_line(file, num_palavras_linha, "%d", &num_palavras);
     for (int i = 1; i <= num_palavras; i++)
     {
         char palavra[MAX_LINE_LENGTH];
-        read_line(file, 10 + i, "%s", &palavra);
+        read_line(file, num_palavras_linha + i, "%s", &palavra);
 
         if (nfa(graph, 0, palavra, accept, 0))
             printf("%d: %s OK\n", i, palavra);
