@@ -133,8 +133,6 @@ void file_mode(void)
         return;
     }
 
-    int i;
-
     // Leitura do alfabeto
     char alfabeto[50];
     read_line(file, 1, "%s", alfabeto);
@@ -144,7 +142,7 @@ void file_mode(void)
     read_line(file, 2, "%d", &n);
     node *graph[n + 1];
 
-    for (i = 0; i <= n; i++)
+    for (int i = 0; i <= n; i++)
         graph[i] = NULL;
 
     int accept[n + 1];
@@ -154,17 +152,21 @@ void file_mode(void)
     int num_finais;
     read_line(file, 3, "%d", &num_finais);
 
-    for (i = 1; i <= num_finais; i++)
+    char finais_linha[MAX_LINE_LENGTH];
+    read_line(file, 4, "%[^\n]", finais_linha);
+
+    char *token = strtok(finais_linha, " ");
+    for (int i = 0; i < num_finais && token != NULL; i++)
     {
-        int final_state;
-        read_line(file, 3 + i, "%d", &final_state);
+        int final_state = atoi(token);
         accept[final_state] = 1;
+        token = strtok(NULL, " ");
     }
 
     // Número de transições
     int num_transicoes;
     read_line(file, 5, "%d", &num_transicoes);
-    for (i = 1; i <= num_transicoes; i++)
+    for (int i = 1; i <= num_transicoes; i++)
     {
         int origem, destino;
         char simbolo;
@@ -175,7 +177,7 @@ void file_mode(void)
     // Número de palavras a serem testadas
     int num_palavras;
     read_line(file, 10, "%d", &num_palavras);
-    for (i = 1; i <= num_palavras; i++)
+    for (int i = 1; i <= num_palavras; i++)
     {
         char palavra[MAX_LINE_LENGTH];
         read_line(file, 10 + i, "%s", &palavra);
