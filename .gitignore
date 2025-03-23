@@ -116,4 +116,5 @@ fabric.properties
 
 cmake-build-debug
 CMakeLists.txt
+.idea
 # End of https://www.toptal.com/developers/gitignore/api/clion
